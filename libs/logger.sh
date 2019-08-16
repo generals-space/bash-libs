@@ -24,7 +24,7 @@ function log_debug()
 function log_info()
 {
     if (( __LOGGER_LOG_LEVEL__ <= __LOGGER_LEVEL_INFO__ )); then
-        echo -e "INFO:    $1"
+        echo -e "INFO:    $1 \033[0m"
     fi
 }
 function log_warn()
