@@ -2,8 +2,39 @@
 
 source $(cd $(dirname $0) && pwd)/../libs/str.sh
 
+#########################################################
+## strlen
+
 strlen '1q2w3e4r5t6y7u8i9o0p' ## 10
 strlen '!@#$%^&*()_+-=[]{}' ## 18
 strlen '""' ## 2
 strlen "''" ## 2
 
+#########################################################
+## strcontains
+
+strcontains abcd ab ## 1
+strcontains abcd abd ## 0
+strcontains "hello world" "hello"  ## 1
+strcontains "hello world" "hello w"  ## 1
+strcontains "hello world" "hello x"  ## 0
+
+#########################################################
+## strstartwith
+
+strstartwith abcd a  ## 1
+strstartwith abcd ab  ## 1
+strstartwith abcd b  ## 0
+strstartwith abcd bc  ## 0
+strstartwith "hello world" "hello"  ## 1
+strstartwith "hello world" " hello"  ## 0
+
+#########################################################
+## strendwith
+
+strendwith abcd d  ## 1
+strendwith abcd cd  ## 1
+strendwith abcd a  ## 0
+strendwith abcd ab  ## 0
+strendwith "hello world" "world"  ## 1
+strendwith "hello world" "world "  ## 0
