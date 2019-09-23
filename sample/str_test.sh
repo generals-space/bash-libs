@@ -38,3 +38,22 @@ strendwith abcd a  ## 0
 strendwith abcd ab  ## 0
 strendwith "hello world" "world"  ## 1
 strendwith "hello world" "world "  ## 0
+
+#########################################################
+## strupper
+
+strupper abcd ## ABCD
+strupper abCD ## ABCD
+strupper "hello world" ## HELLO WORLD
+strupper "Hello World" ## HELLO WORLD
+strupper "Hello World@#$%^&*()_+-=[]{},.<>/?" ## HELLO WORLD@#$%^&*()_+-=[]{},.<>/?
+strupper "世界 你好" ## 世界 你好
+## 注意: 双引号包裹的英文感叹号!会被转义, 但这并不是脚本问题, 而bash本身的机制.
+strupper "Hello World!" ## HELLO WORLD
+strupper 'Hello World!' ## HELLO WORLD!
+
+#########################################################
+## strlower
+
+strlower ABCD ## abcd
+strlower abCD ## abcd

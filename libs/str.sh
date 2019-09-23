@@ -43,7 +43,7 @@ function strcontains()
 ## @return:   结果以echo方式返回
 function strstartwith()
 {
-    if [ "${1#$2}" = "$1" ]; then
+    if [[ "${1#$2}" = "$1" ]]; then
         echo 0
     else 
         echo 1
@@ -53,7 +53,7 @@ function strstartwith()
 ## @return:   结果以echo方式返回
 function strendwith()
 {
-    if [ "${1%$2}" = "$1" ]; then
+    if [[ "${1%$2}" = "$1" ]]; then
         echo 0
     else 
         echo 1
@@ -71,8 +71,23 @@ function strreplace()
 
 }
 
-## @function: 判断字符串是否相等
+## @function: 判断字符串$1与$2是否相等
+## @return:   结果以echo形式返回
 function strequal()
 {
+    if [[ $1 == $2 ]]; then
+        echo 1
+    else
+        echo 0
+    fi
+}
 
+function strupper()
+{
+    echo ${1^^}
+}
+
+function strlower()
+{
+    echo ${1,,}
 }
