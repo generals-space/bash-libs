@@ -1,13 +1,14 @@
 #!/bin/bash
 
 ## @function: 计算指定字符串的长度
+## $1:        目标字符串
 function strlen() 
 {
     ## 1. wc 的-L选项, 直接获取当前行的字符数
-    echo $1 | wc -L
+    ## wc的选项可能由于不同系统平台而不同, 所以尽量不考虑这种方式.
+    ## echo $1 | wc -L
     ## 2. ${}方法, 把字符串变量当作是数组处理
-    ## local str=$1
-    ## echo ${#str}
+    echo ${#1}
     ## 3. awk内置的length()函数
     ## echo $1 | awk '{print length($0)}'
     ## 4. expr内置lenght无法处理变量中存在空格的情形, 放弃使用
@@ -16,15 +17,15 @@ function strlen()
 ## @function: 移除参数$1左右两侧的空白字符
 function strtrim()
 {
-
+:
 }
 function strltrim()
 {
-
+:
 }
 function strrtrim()
 {
-
+:
 }
 ## @function: 判断$2是否为$1的子字符串, 即$1是否包含$2.
 ## @note:     bash中花括号的高级应用, 判断从$1开始处是否可以匹配到`*$2*`, `*`为通配符.
@@ -63,12 +64,12 @@ function strendwith()
 ## @note: 按空格分隔没有意义, 需要指定显式字符.
 function strsplit()
 {
-
+:
 }
 
 function strreplace()
 {
-
+:
 }
 
 ## @function: 判断字符串$1与$2是否相等
@@ -82,12 +83,79 @@ function strequal()
     fi
 }
 
+## @note: MacOS下的bash可能会出错: bad substitution
 function strupper()
 {
     echo ${1^^}
 }
 
+## @note: MacOS下的bash可能会出错: bad substitution
 function strlower()
 {
     echo ${1,,}
+}
+
+## @function: 字符串切片, 不支持倒数截取
+## $1:        待截取的字符串
+## $2:        开始位置start(可为负数, 倒数计数)
+## $3:        结束位置end(可为负数, 倒数计数). 
+##            由于是左闭右开区间, 所以$3最大可以为$1的长度值本身.
+##            可为空, 为空时表示截取到$1结尾.
+function strslice()
+{
+    local slen=$(strlen "$1")
+    local start=$2 
+    local end=${3:-$slen}
+    ## 如果结束位置超出了$1的长度, 则抛出异常
+    if ((end > slen)); then
+        ## 抛出异常, 同时返回空字符串
+        echo 'invalid end param' 1>&2
+        return 1
+    fi
+
+    if ((start < 0)); then
+        ## let 简单计算命令
+        let start=$slen+$start
+    fi
+    if ((end < 0)); then
+        ## let 简单计算命令
+        let end=$slen+$end
+    fi
+    ## 如果起始位置>结束位置, 则抛出异常
+    if ((start > end)); then
+        ## 抛出异常
+        return 1
+    fi
+    local len=$end-$start
+    echo ${1:start:len}
+}
+
+## @function: 字符串切片, 不支持倒数截取
+## $1:        待截取的字符串
+## $2:        从开始计数截取的位置start
+## $3:        截取的长度len(len可以超过str的长度)
+function strsub()
+{
+    ## 第一个参数为变量时不可以带$符号, 
+    ## 第2,3个参数必须带, 否则会被当成数值
+    if [[ $3 != '' ]]; then
+        echo ${1:$2:$3}
+    else
+        echo ${1:$2}
+    fi
+}
+
+## @function: 字符串反向切片(string reverse sub), 倒数截取
+## $1:        待截取的字符串
+## $2:        从末尾计数截取的位置start
+## $3:        截取的长度len(len可以超过str的长度)
+function strrsub()
+{
+    ## 第一个参数为变量时不可以带$符号, 
+    ## 第2,3个参数必须带, 否则会被当成数值
+    if [[ $3 != '' ]]; then
+        echo ${1:0-$2:$3}
+    else
+        echo ${1:0-$2}
+    fi
 }

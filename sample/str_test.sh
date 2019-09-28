@@ -57,3 +57,19 @@ strupper 'Hello World!' ## HELLO WORLD!
 
 strlower ABCD ## abcd
 strlower abCD ## abcd
+
+#########################################################
+## strslice
+strslice 'hello world' 0 5      ## hello
+strslice 'hello world' 0 11     ## hello world
+strslice 'hello world' 0 -3     ## hello wo
+strslice 'hello world' -5 -3    ## wo
+
+#########################################################
+## strsub
+
+strsub 'hello world' 0 5        ## hello
+#########################################################
+## strrsub
+
+strrsub 'hello world' 5 5        ## world
