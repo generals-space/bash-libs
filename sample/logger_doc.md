@@ -9,7 +9,7 @@
 
 ![](../assets/logger-01.png)
 
-log_XXX用于输出到文件, clog_XXX(color log)可用于终端打印, 因为后者打印的字符输出到文件会得到乱码.
+`log_XXX`用于输出到文件, `clog_XXX(color log)`可用于终端打印, 因为后者打印的字符输出到文件会得到乱码.
 
 ## 基础知识
 
