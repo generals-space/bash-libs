@@ -73,3 +73,9 @@ strsub 'hello world' 0 5        ## hello
 ## strrsub
 
 strrsub 'hello world' 5 5        ## world
+
+#########################################################
+## strreplace
+echo ================== strreplace
+strreplace '1 2 3' ' ' ','          ## 1,2 3
+strreplace '1 2 3' ' ' ',' 'true'   ## 1,2,3

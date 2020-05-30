@@ -67,9 +67,20 @@ function strsplit()
 :
 }
 
+## @function 将目标字符串$1中指定内容a替换内容b.
+## $1:        目标字符串
+## $2:        待被替换的内容a
+## $3:        用于替换的内容b
+## $4:        是否全局替换, 如果不是, 则只替换$1中第一个$2. 
+##            如果需填true(其余参数无效), 默认为否.
+## @return:   结果以echo方式返回
 function strreplace()
 {
-:
+    if [[ "$4" = "true" ]]; then
+        echo ${1//$2/$3}
+    else 
+        echo ${1/$2/$3}
+    fi
 }
 
 ## @function: 判断字符串$1与$2是否相等
